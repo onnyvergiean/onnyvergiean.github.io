@@ -100,7 +100,15 @@ const nextHadith = () => {
         location.reload();
         return nextHadithContent
     } catch (e) {
-        return e
+          const preloader = `
+            <div class="preloader-data text-center">
+                <div class="lottie-anim"></div>
+                <H2 class="mt-3">Anda Sedang Offline</H2>
+            </div>
+            `
+            detailHadith.innerHTML = preloader
+
+            showPreloader('not-found.json')
     }
 }
 
@@ -125,7 +133,15 @@ const backHadith = () => {
         location.reload();
         return backHadithContent
     } catch (e) {
-        return e
+          const preloader = `
+            <div class="preloader-data text-center">
+                <div class="lottie-anim"></div>
+                <H2 class="mt-3">Anda Sedang Offline</H2>
+            </div>
+            `
+            detailHadith.innerHTML = preloader
+
+            showPreloader('not-found.json')
     }
 }
 
