@@ -35,7 +35,7 @@ const showHadith = (data) => {
                 </p>
             </div>
             `
-        } else if(data.found == 0) {
+        } else{
 
             const preloader = `
             <div class="preloader-data text-center">
@@ -48,16 +48,7 @@ const showHadith = (data) => {
             showPreloader('not-found.json')
         }
     } catch (e) {
-         const preloader = `
-            <div class="preloader-data text-center">
-                <div class="lottie-anim"></div>
-                <H3 class="mt-3">Maaf Anda Sedang Offline</H3>
-            </div>
-            `
-            detailHadith.innerHTML = preloader
-
-            showPreloader('not-found.json')
-        }
+       return e
     }
 
 
