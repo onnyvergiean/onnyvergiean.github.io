@@ -50,7 +50,7 @@ const showHadith = (data) => {
     } catch (e) {
        return e
     }
-
+}
 
 // fetch data from API
 const fetchHadith = async () => {
