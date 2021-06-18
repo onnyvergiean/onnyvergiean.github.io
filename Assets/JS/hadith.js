@@ -59,7 +59,6 @@ const showHadith = (data) => {
             showPreloader('not-found.json')
         }
     }
-}
 
 
 // fetch data from API
