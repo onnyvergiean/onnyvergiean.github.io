@@ -68,6 +68,7 @@ a:hover {
 .card-hadith span {
   font-size: 40px;
 }
+
 .body-hadith a, .body-hadith a:hover {
   transition-property: var(--transition-property);
   transition-duration: var(--transition-duration);
@@ -83,6 +84,10 @@ a:hover {
 
 .header a {
   color: white;
+}
+
+.header .form-control {
+  width: 200px;
 }
 
 .navigator .btn {
