@@ -74,7 +74,6 @@ const fetchHadith = async () => {
             "num": page
         }
 
-
     } catch (e) {
         return e
     }
