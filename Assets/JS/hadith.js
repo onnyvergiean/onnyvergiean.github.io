@@ -1,11 +1,11 @@
-let param = location.search.substring(1);
-let splitter = param.split("|");
-let hadithId = splitter[0];
-let page = parseInt(splitter[1]);
+let param = location.search.substring(1)
+let splitter = param.split("|")
+let hadithId = splitter[0]
+let page = parseInt(splitter[1])
 
-const detailHadith = document.querySelector('.detail-hadith');
-const nextBtnHadith = document.querySelector('#nextHadith');
-const backBtnHadith = document.querySelector('#backHadith');
+const detailHadith = document.querySelector('.detail-hadith')
+const nextBtnHadith = document.querySelector('#nextHadith')
+const backBtnHadith = document.querySelector('#backHadith')
 const namaHadith = document.querySelector('#nama-hadith')
 const nomorHadith = document.querySelector('#no-hadith')
 const title = document.querySelector('title')
@@ -23,7 +23,7 @@ const showHadith = (data) => {
         `
         title.innerText = `${data.name} - Hadith No ${data.num}`
 
-        if (data.found == 1) {
+        if (data.found) {
             detailHadith.innerHTML = `
             <div>
                 <p id="arabic-hadith">
@@ -35,7 +35,7 @@ const showHadith = (data) => {
                 </p>
             </div>
             `
-        } else{
+        } else {
 
             const preloader = `
             <div class="preloader-data text-center">
@@ -48,9 +48,10 @@ const showHadith = (data) => {
             showPreloader('not-found.json')
         }
     } catch (e) {
-       return e
+        return e
     }
 }
+
 
 // fetch data from API
 const fetchHadith = async () => {
@@ -74,6 +75,7 @@ const fetchHadith = async () => {
             "num": page
         }
 
+
     } catch (e) {
         return e
     }
@@ -83,9 +85,9 @@ const fetchHadith = async () => {
 // next button, increase page by 1
 const nextHadith = () => {
     try {
-        page += 1;
-        const nextHadithContent = window.history.replaceState(null, null, "?" + hadithId + "|" + page);
-        location.reload();
+        page += 1
+        const nextHadithContent = window.history.replaceState(null, null, "?" + hadithId + "|" + page)
+        location.reload()
         return nextHadithContent
     } catch (e) {
         return e
@@ -95,8 +97,8 @@ const nextHadith = () => {
 // get hadith by number
 const getSpecificHadith = (num) => {
     try {
-        const data = window.history.replaceState(null, null, "?" + hadithId + "|" + num);
-        location.reload();
+        const data = window.history.replaceState(null, null, "?" + hadithId + "|" + num)
+        location.reload()
         return data
 
     } catch (e) {
@@ -108,9 +110,9 @@ const getSpecificHadith = (num) => {
 // back button, decrease page by 1
 const backHadith = () => {
     try {
-        page -= 1;
-        const backHadithContent = window.history.replaceState(null, null, "?" + hadithId + "|" + page);
-        location.reload();
+        page -= 1
+        const backHadithContent = window.history.replaceState(null, null, "?" + hadithId + "|" + page)
+        location.reload()
         return backHadithContent
     } catch (e) {
         return e
@@ -121,37 +123,54 @@ const backHadith = () => {
 
 document.addEventListener('DOMContentLoaded', async () => {
 
-    // disable back button if current page is 1
-    if (page <= 1) {
-        backBtnHadith.disabled = true
-    }
+    if (!isNaN(page)) {
+        // disable back button if current page is 1
+        if (page <= 1) {
+            backBtnHadith.disabled = true
+        }
 
-    // show user feedback to page
-    const preloader = `
+        // show user feedback to page
+        const preloader = `
         <div class="preloader-data text-center">
             <div class="lottie-anim"></div>
             <H3 class="mt-3">Sedang Memuat Data...</H3>
         </div>
     `
-    detailHadith.innerHTML = preloader
+        detailHadith.innerHTML = preloader
 
-    showPreloader('loading-data.json')
-    setTimeout(async () => {
-        const data = await fetchHadith()
-        showHadith(data)
-    }, 1000);
+        showPreloader('loading-data.json')
+        setTimeout(async () => {
+            const data = await fetchHadith()
+            showHadith(data)
+        }, 1000)
 
-    inputPage.addEventListener('change', async (e) => {
-        const page = inputPage.value
-        
-        console.log(page)
-        const data = await getSpecificHadith(page)
+        inputPage.addEventListener('change', async (e) => {
+            const page = inputPage.value
 
-        showHadith(data)
-    })
+            console.log(page)
+            const data = await getSpecificHadith(page)
 
-    nextBtnHadith.addEventListener('click', nextHadith)
-    backBtnHadith.addEventListener('click', backHadith)
+            showHadith(data)
+        })
+
+        nextBtnHadith.addEventListener('click', nextHadith)
+        backBtnHadith.addEventListener('click', backHadith)
+    } else {
+        document.body.innerHTML = ''
+        const preloader = `
+            <div class="d-flex justify-content-center" style="height:100vh">
+                <div class="preloader-data text-center">
+                    <div class="lottie-anim"></div>
+                    <H3 class="mt-3">Data tidak ditemukan. Pastikan kamu memilih Hadith terlebih dahulu</H3>
+                    <a href="./" class="btn btn-outline-success mt-4">Kembali ke Homepage</a>
+                </div>
+            </div>
+            `
+        document.body.innerHTML = preloader
+
+        showPreloader('not-found.json')
+        console.log(123)
+    }
 })
 
 window.addEventListener('load', async () => {
@@ -163,4 +182,3 @@ window.addEventListener('load', async () => {
         turnOffDarkMode()
     }
 })
-

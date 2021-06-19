@@ -1,4 +1,4 @@
-let bodyPage = document.querySelector('body')
+let bodyPage = document.body
 
 const turnOnDarkMode = async () => {
     bodyPage.classList.add('dark-mode')
